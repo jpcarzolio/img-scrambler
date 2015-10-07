@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type='text/javascript' src='../js/LCG.js'></script>
+    <script type='text/javascript' src='../js/ImageScrambler.js'></script>
+  </head>  
+  <body>
+    Key: <input id='key' type='text' value='19845' size='8'/>
+    <button onclick='scramble()'>Scramble</button>
+    <button onclick='unscramble()'>Unscramble</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <button onclick='loadOriginal()'>Load Original</button>
+    <br><br>
+    <canvas id='canvas'></canvas>
+
+    <script type='text/javascript'>
+      var img = new Image();
+      img.src = 'landscape.jpg';
+      
+      var canvas = document.getElementById('canvas');
+      canvas.style.border = '1px dashed black';
+      
+      function loadOriginal() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext('2d').drawImage(img, 0, 0);
+      }
+      
+      function scramble() {
+        var scrambled = ImageScrambler.scramble(canvas, document.getElementById('key').value);
+        var ctx = canvas.getContext('2d').drawImage(scrambled, 0, 0);
+      }
+      
+      function unscramble() {
+        var unscrambled = ImageScrambler.unscramble(canvas, document.getElementById('key').value);
+        var ctx = canvas.getContext('2d').drawImage(unscrambled, 0, 0);
+      }
+
+      img.addEventListener('load', loadOriginal);
+    </script>
+
+
+  </body>
+</html>
